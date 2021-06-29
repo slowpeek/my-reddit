@@ -13,7 +13,7 @@ t_crdl=$(tput -S <<< $'cr\ndl1')
 ghome=google.com
 gdns=8.8.8.8
 
-read -r gway gifc < <(ip r | awk '/default/ { print $3, $5 }')
+read -r gway gifc < <(ip r s default | awk '{ print $3, $5; exit }')
 
 readarray -td@ text <<EOF
 
