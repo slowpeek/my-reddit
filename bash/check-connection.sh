@@ -2,6 +2,7 @@
 
 # Author: /u/kevors
 # Reddit: https://www.reddit.com/r/bash/comments/o8go3x/:/h359gkt/
+# Permalink: https://github.com/slowpeek/my-reddit/blob/master/bash/check-connection.sh
 
 t_rst=$(tput sgr0)
 t_info=$(tput setaf 2)

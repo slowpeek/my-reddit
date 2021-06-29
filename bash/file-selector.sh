@@ -2,6 +2,7 @@
 
 # Author: /u/kevors
 # Reddit: https://www.reddit.com/r/bash/comments/oa7srl/:/h3gda9u/
+# Permalink: https://github.com/slowpeek/my-reddit/blob/master/bash/file-selector.sh
 
 file_selector() {
     local origin=${1%${1##*[^/]}} menu=() sel up
