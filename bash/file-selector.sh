@@ -33,9 +33,19 @@ file_selector() {
 
             printf '%d items\n\n' "${#menu[@]}"
 
-	        select sel in "${menu[@]}"; do
+            # Just render the menu
+            select sel in "${menu[@]}"; do
                 break
-            done
+            done <<< dummy
+
+            read -r
+
+            [[ -n $REPLY ]] || continue
+
+            sel=
+            if [[ $REPLY == [1-9]*([0-9]) && -v menu[REPLY-1] ]]; then
+                sel=${menu[REPLY-1]}
+            fi
         else
             read -r -p $'empty\n\n'"$PS3"
             sel=
