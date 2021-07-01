@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Author: /u/kevors
 # Reddit: https://www.reddit.com/r/bash/comments/oa7srl/:/h3gda9u/
