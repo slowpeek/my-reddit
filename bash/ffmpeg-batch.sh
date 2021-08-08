@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 # Author: /u/kevors
+# Reddit: https://www.reddit.com/r/ffmpeg/comments/p0hd2u/:/h871hq0
 # Permalink: https://github.com/slowpeek/my-reddit/blob/master/bash/ffmpeg-batch.sh
 
 set -eu
