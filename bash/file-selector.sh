@@ -5,7 +5,7 @@
 # Permalink: https://github.com/slowpeek/my-reddit/blob/master/bash/file-selector.sh
 
 file_selector() {
-    local origin=${1%${1##*[^/]}} menu=() sel up
+    local origin=${1%${1##*[^/]}} menu=() sel up reply
     local cwd=$origin PS3
 
     # Reset result
@@ -34,24 +34,24 @@ file_selector() {
             printf '%d items\n\n' "${#menu[@]}"
 
             # Just render the menu
-            select sel in "${menu[@]}"; do
+            select _ in "${menu[@]}"; do
                 break
-            done <<< dummy
+            done <<< a
 
-            read -r
+            read -r reply
 
-            [[ -n $REPLY ]] || continue
+            [[ -n $reply ]] || continue
 
             sel=
-            if [[ $REPLY == [1-9]*([0-9]) && -v menu[REPLY-1] ]]; then
-                sel=${menu[REPLY-1]}
+            if [[ $reply == [1-9]*([0-9]) && -v menu[reply-1] ]]; then
+                sel=${menu[reply-1]}
             fi
         else
             read -r -p $'empty\n\n'"$PS3"
             sel=
         fi
 
-        case $REPLY in
+        case $reply in
             [qQ])
                 # Quit, nothing selected
                 return 1
