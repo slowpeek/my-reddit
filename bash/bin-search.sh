@@ -4,7 +4,6 @@
 # Reddit: https://www.reddit.com/r/bash/comments/pd59z5/:/haobv9s
 # Permalink: https://github.com/slowpeek/my-reddit/blob/master/bash/bin-search.sh
 
-
 set -eu
 
 bin_search () {
