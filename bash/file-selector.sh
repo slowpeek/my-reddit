@@ -13,7 +13,7 @@ file_selector() {
 
     while true; do
         clear -x
-	    printf '%s\n' "${cwd:-/}"
+        printf '%s\n' "${cwd:-/}"
 
         PS3=$'-----\nq Quit'
 
@@ -66,11 +66,11 @@ file_selector() {
                     ;;
                     */)
                         # Dir selected, descend
-			            cwd+=/"${sel::-1}"
+                        cwd+=/"${sel::-1}"
                         ;;
                     *)
                         # Not dir selected, return the selection
-			            FILE_SELECTOR_RESULT=$sel
+                        FILE_SELECTOR_RESULT=$sel
                         return 0
                         ;;
                 esac
