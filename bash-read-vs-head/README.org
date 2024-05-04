@@ -1,0 +1,64 @@
+* About
+
+/Reddit [[https://new.reddit.com/r/bash/comments/1cest8z/benchmark_read_n_vs_head_c/][discussion]]/
+
+Once I needed to walk through a big xxd-encoded file in my script like this:
+
+#+begin_example
+  {
+      init_sz
+      while condition; do
+          read -r -N $sz data
+          # calculate $skip and update $sz based of fresh $data
+          read -r -N $skip _
+      done
+  } < file.xxd
+#+end_example
+
+=$sz= is small, usually below 100 bytes. =$skip= could be anything. Testing it,
+I've figured out =read -N X= gets somewhat slow with bigger =X=. I tried using
+=head -c X= for bigger =X= and it was faster even with the external process
+overhead.
+
+Trying it by hand I picked a sweet point at 150000 bytes:
+
+#+begin_example
+  if (( skip < 150000 )); then
+      read -r -N $skip _
+  else
+      head -c $skip >/dev/null
+  fi
+#+end_example
+
+Now I wanted to check, how close the point is to the optimal value.
+
+* Benchmark
+
+Generate some input file:
+
+#+begin_example
+  dd if=/dev/urandom bs=1M count=512 | xxd -p | tr -d '\n' > rnd.xxd
+#+end_example
+
+Run the test:
+
+#+begin_example
+  for ((i=50; i<=200; i++)); do ./test2.sh $((1000*i)) rnd.xxd; done | tee log
+#+end_example
+
+Plot the result:
+
+#+begin_example
+  octave plot2.m < log
+#+end_example
+
+Sample plot:
+
+[[./sample.png]]
+
+As you can see, 150000 bytes was a pretty good estimate. It is inside the narrow
+region where =head -c= becomes faster than =read -N= on my system.
+
+Also you can see =read -N= performance degrades linearly with chunk size
+increase. While =head -c= has nearly constant speed in the range of 50k .. 200k
+chunk size.
